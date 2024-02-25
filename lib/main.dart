@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter/widgets.dart';
 
 void main() {
@@ -31,13 +31,13 @@ class MyApp extends StatelessWidget {
                   color: const Color.fromARGB(255, 224, 221, 221)),
               child: ListView(
                 children: [
-                  Task('Aprender Flutter no nível inicial'),
-                  Task('Aprender Java'),
-                  Task('Aprender Phyton'),
-                  Task('Aprender PHP'),
-                  Task('Desenvolver PHP'),
-                  Task('Desenvolver Phyton'),
-                  Task('Desenvolver Flutter'),
+                  Task('Aprender Flutter no nível inicial', ''),
+                  Task('Aprender Java', ''),
+                  Task('Aprender Phyton', ''),
+                  Task('Aprender PHP', ''),
+                  Task('Desenvolver PHP', ''),
+                  Task('Desenvolver Phyton', ''),
+                  Task('Desenvolver Flutter', ''),
                 ],
               ),
             )));
@@ -46,8 +46,9 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String name;
+  final String image;
 
-  const Task(this.name, {super.key});
+  const Task(this.name, this.image, {super.key});
 
   @override
   State<Task> createState() => _TaskState();
@@ -70,15 +71,26 @@ class _TaskState extends State<Task> {
                   color: Colors.black26,
                   width: 72,
                   height: 100,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  width: 150,
-                  child: Text(
-                    widget.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 20),
+                  child: Image.network(
+                    widget.image,
+                    fit: BoxFit.cover,
                   ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 150,
+                      child: Text(
+                        widget.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Container(
+                      child: Icon(Icons.star_border),
+                    )
+                  ],
                 ),
                 ElevatedButton(
                     onPressed: () {
