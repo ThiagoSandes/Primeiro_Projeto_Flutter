@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
@@ -31,13 +32,12 @@ class MyApp extends StatelessWidget {
                   color: const Color.fromARGB(255, 224, 221, 221)),
               child: ListView(
                 children: [
-                  Task('Aprender Flutter no nível inicial', ''),
-                  Task('Aprender Java', ''),
-                  Task('Aprender Phyton', ''),
-                  Task('Aprender PHP', ''),
-                  Task('Desenvolver PHP', ''),
-                  Task('Desenvolver Phyton', ''),
-                  Task('Desenvolver Flutter', ''),
+                  Task('Aprender Flutter no nível inicial','assets/images/Imagef.png',5),
+                  Task('Aprender Java com', "assets/images/Imagef.png", 1),
+                  Task('Aprender Phyton', "assets/images/Imagef.png", 2),                
+                  Task('Desenvolver PHP', "assets/images/Imagef.png", 3),
+                  Task('Desenvolver Phyton', "assets/images/Imagef.png", 1),
+                  Task('Desenvolver Flutter', "assets/images/Imagef.png", 4),
                 ],
               ),
             )));
@@ -47,12 +47,16 @@ class MyApp extends StatelessWidget {
 class Task extends StatefulWidget {
   final String name;
   final String image;
+  final int star;
+  
 
-  const Task(this.name, this.image, {super.key});
+  const Task(this.name, this.image, this.star, {super.key});
+  
+  
 
   @override
   State<Task> createState() => _TaskState();
-}
+} 
 
 class _TaskState extends State<Task> {
   int nivel = 0;
@@ -71,12 +75,13 @@ class _TaskState extends State<Task> {
                   color: Colors.black26,
                   width: 72,
                   height: 100,
-                  child: Image.network(
-                    widget.image,
+                  child: Image.asset(widget.image,
+                    
                     fit: BoxFit.cover,
                   ),
+                  
                 ),
-                Column(
+                Column( mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       alignment: Alignment.center,
@@ -88,7 +93,15 @@ class _TaskState extends State<Task> {
                       ),
                     ),
                     Container(
-                      child: Icon(Icons.star_border),
+                      child: Row(
+                        children: [ 
+                          Icon(Icons.star, size: 15, color:widget.star>=1? Colors.blue: Colors.blue[100] ),
+                          Icon(Icons.star, size: 15, color:widget.star>=2? Colors.blue: Colors.blue[100] ),
+                          Icon(Icons.star, size: 15, color:widget.star>=3? Colors.blue: Colors.blue[100] ),
+                          Icon(Icons.star, size: 15, color:widget.star>=4? Colors.blue: Colors.blue[100] ),
+                          Icon(Icons.star, size: 15, color:widget.star>=5? Colors.blue: Colors.blue[100] ),
+                        ],
+                  ),
                     )
                   ],
                 ),
@@ -113,7 +126,7 @@ class _TaskState extends State<Task> {
               children: [
                 Container(
                   child: LinearProgressIndicator(
-                    value: nivel / 25,
+                    value: widget.star > 0 ? (nivel/widget.star) / 10 : 1,
                   ),
                   width: 200,
                 ),
@@ -132,3 +145,4 @@ class _TaskState extends State<Task> {
     );
   }
 }
+
